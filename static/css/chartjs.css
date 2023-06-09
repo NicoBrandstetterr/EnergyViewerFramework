@@ -1,0 +1,70 @@
+#generation-button {
+    right: 1em;
+    top: 0em;
+}
+
+#chart-column-menu {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.columns-1 > div {
+    display: block;
+    width: 100%;
+}
+
+.columns-2 > div {
+    display: inline-block;
+    width: 50%;
+}
+
+.columns-3 > div {
+    display: inline-block;
+    width: 33%;
+}
+
+.chartmenu-button
+{
+	margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.chart-menu
+{
+    width: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chart-width{
+	max-width: 600px;
+}
+
+.quit-button
+{
+	cursor: pointer;
+}
+
+.move-button
+{
+	cursor: move;
+}
+
+.input-time
+{
+    width: 100px;
+    margin-right: 10px;
+}
+
+.time-select
+{
+    width: 50%;
+    min-width: 160px !important;
+}
+
+.wrong-interval
+{
+	box-shadow: 3px -3px 1px #FF0000;
+}

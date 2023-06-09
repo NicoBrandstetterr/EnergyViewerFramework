@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF8"/>
+        <title>EnergyViewer</title>
+
+        <link rel="icon" href="resources/icono.png" type="image/x-png"/>
+        <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="css/menubar.css" type="text/css"/>
+
+        <link rel="stylesheet" href="css/search.css" type="text/css"/>
+        <link rel="stylesheet" href="css/chosen.min.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+
+        <link href="css/index.css" rel="stylesheet" type="text/css" />
+        <link href="css/vis.css" rel="stylesheet" type="text/css" />
+        <link href="css/visjs.css" rel="stylesheet" type="text/css" />
+        <link href="css/chartjs.css" rel="stylesheet" type="text/css" />
+        <link href="css/vis-network.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/leaflet.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body id="body" onload='$("body").css("cursor", "default");'>
+
+        <div class="container-fluid">
+        <!-- Menu Bar -->
+            <div class="row" id="menubar">
+                <nav class="navbar navbar-default navbar-fixed-top" id="mynavbar" style="max-height:51px;">
+                    <ul class="nav navbar-nav">
+                    <li class="standalone"><a href="index.html">Volver a proyectos</a></li>
+                    <!-- <li><a href="#" id="openViewModal" data-toggle="modal" data-target="#loadJSONView">Cargar vista</a></li> -->
+                    <li><a href="#" id="openViewModal" onclick="loadAutoView(true)">Cargar vista</a></li>
+
+                    <li><a href="#" id="save-view" onclick="saveView()">Guardar vista</a></li>
+                    <li><a href="#" id="dlink" onclick="downloadVis()">Exportar imagen</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ver<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="material-switch pull-left">
+                                    <input class="view-selector" id="vis-view" type="checkbox" checked></input>
+                                    <label class="label-primary" for="vis-view"></label>
+                                </div>
+                                <b class="pull-left lmargin">Visor de redes</b>
+                                </br></br>
+                            </li>
+                            <li>
+                                <div class="material-switch pull-left">
+                                    <input class="view-selector" id="options-view" type="checkbox" checked></input>
+                                    <label class="label-primary" for="options-view"></label>
+                                </div>
+                                <b class="pull-left lmargin">Barra de herramientas</b>
+                                </br></br>
+                            </li>
+                            <li>
+                                <div class="material-switch pull-left">
+                                    <input class="view-selector" id="chart-view" type="checkbox"></input>
+                                    <label class="label-primary" for="chart-view"></label>
+                                </div>
+                                <b class="pull-left lmargin">Barra de gráficos</b>
+                                </br></br>
+                            </li>
+                        </ul>
+                    </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+<!--                         <li><a data-toggle="modal" data-target="#legendModal" class="hoverable">Leyenda</a></li> -->
+                        <li><a data-toggle="modal" data-target="#helpModal" class="hoverable">Ayuda</a></li>
+                        <li><a data-toggle="modal" data-target="#aboutModal" class="hoverable">Acerca de</a></li>
+                        <li>·</li> <!-- Espacio para el "acerca de" y el borde derecho de la pantalla -->
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Main content -->
+            <div class="row" id="content">
+                <div id="options-column" class="col-md-2">
+					<div id="options" class="row">
+						<!-- search -->
+						<h3>Búsqueda</h3>
+						<select class="chosen chosenselect" id="search-dropdown" data-placeholder="Ir a un nodo!"></select>
+
+						<div id="separation" class="row"><hr /></div>
+
+                        <div id="div-resultados" class="hidden">
+                            <!-- estado de topología -->
+                            <h3>Estado</h3>
+                            <label> Hidrología: </label>
+                            <br/>
+                            <select class="chosen chosenselect" id="hydrology-picker" onchange="updateHydrology();" data-placeholder="Seleccione una hidrología">
+                                <option value=""></option>
+                            </select>
+                            <br/><br/>
+                            <label> Tiempo de la topología: </label>
+                            <br/>
+                            <div>
+                                <div style="padding-bottom: 5px;">
+                                    <select class="chosen chosenselect time_picker" id="time-picker" onchange="updateSlider();" data-placeholder="Escriba un tiempo">
+                                        <option value=""></option>
+                                    </select>
+                                    <input id="time-slider" class="slider" type="range" value="1" onclick="$('#time-picker').val($('#time-slider').val());" onchange="updateTime();" />
+                                </div>
+                                <!-- opciones elec -->
+                                <div style="padding-bottom: 5px;">
+                                    <button type="button" id="playTime">
+                                        <img src="resources/network/buttons/play.svg" height="36" width="36"/>
+                                    </button>
+                                    <button type="button" id="pauseTime" class="hidden">
+                                        <img src="resources/network/buttons/pause.svg" height="36" width="36"/>
+                                    </button>
+                                    <select class="chosen chosenselect time_picker" id="start_time" data-placeholder="Escriba un tiempo">
+                                        <option value=""></option>
+                                    </select>
+                                    <select class="chosen chosenselect time_picker" id="end_time" data-placeholder="Escriba un tiempo">
+                                        <option value=""></option>
+                                    </select>
+                                    <br/>
+                                    <label>Velocidad:</label>
+                                </div>
+                                <input class="slider" id="time_speed_slider" type="range" min=0 max=100 value=10>
+                            </div>
+
+                            <div id="separation" class="row"><hr /></div>
+
+                            <!-- opciones de vista geográfica -->
+                            <h3 class="electric geo">Efectos</h3>
+                            <div id="map-sel" class="geo hidden">
+                                <select class="chosen map-select" id="map-select" data-placeholder="Your Favorite Types of Beer" tabindex="8">
+                                    <option value=""></option>
+                                    <option selected>Sin mapa de fondo</option>
+                                    <option disabled>Mapa basico</option>
+                                    <option disabled>Mapa detallado</option>
+                                </select>
+                            </div>
+                            
+                            <!-- opciones elec/geo -->
+							<div id="metric-togglers">
+								<div class="electric">
+									<label>Mostrar costos marginales</label> </br>
+									<span class="material-switch pull-left disp-inline">
+										<input onclick="updateTime()" class="view-selector" id="marginal-cost-toggle" type="checkbox"></input>
+										<!-- <input onclick="updateTime()" class="view-selector" id="marginal-cost-toggle" type="checkbox"></input> -->
+
+										<label class="label-primary" for="marginal-cost-toggle"></label>
+									</span>
+									<span id="marginal-cost-legend" class="right"></span>
+								</div>
+							</div>
+							
+							<br />
+							<br />
+							<br />
+							
+                            <div id="animation-set" class="electric geo">
+                                <label> Mostrar flujo </label>
+                                </br>
+                                <span class="material-switch pull-left disp-inline">
+                                    <input class="view-selector" id="animation-enabled" type="checkbox"></input>
+                                    <label class="label-primary" for="animation-enabled"></label>
+                                </span>
+								<span id="flux-legend" class="right"></span>
+								
+								<br />
+								
+								<div id="animation-speed-div">
+									<label>Velocidad</label>
+									<input class="slider" id="animation-speed" type="range" min=25 max=200 />
+								</div>
+                                </br></br>
+                            </div>
+							
+							
+                        </div>
+                        <!-- opciones elec -->
+                        <div class="electric" id="stabilization">
+                            <label> Estabilización: </label> <br/>
+                            <button type="button" id="enablephysics" onclick="togglePhysics(true);">
+                                <img src="resources/network/buttons/play.svg" height="36" width="36"/>
+                            </button>
+                            <button type="button" id="disablephysics" onclick="togglePhysics(false);" class="hidden">
+                                <img src="resources/network/buttons/pause.svg" height="36" width="36"/>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div id="separation" class="row"><hr /></div>
+                    <div class="row">
+                        <h3>Registro</h3>
+                        <div id="log-area"></div>
+                    </div>
+                </div>
+                <div id="vis-column" class="col-md-10">
+                    <!-- visjs -->
+                    <div class="network electric" id="my-electric-network"></div>
+    
+                    <div class="network hydric hidden" id="my-hydric-network"></div>
+                    <div class="network geo hidden" id="my-geo-network"></div>
+                    <ul id="canvas-selector">
+                        <li><img id="electric-button" class="generic-button" src="resources/network/buttons/light-bulb.svg" alt="Red Eléctrica" height="36" width="36" onclick="toElectricView()"></li>
+                        <li><img id="hydric-button" class="generic-button" src="resources/network/buttons/water-drop.svg" alt="Red Hídrica" height="36" width="36" onclick="toHydricView()"></li>
+                        <li><img id="geo-button" class="generic-button" src="resources/network/buttons/worldwide.svg" alt="Redes Georeferenciadas" height="36" width="36" onclick="toGeoView()"></li>
+                    </ul>
+                    <div id="context-menu" class="hidden">
+                        <ul class="list">
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="chart-column" class="hidden scrollable">
+                    <!-- charjs -->
+                    <h3>Gráficos</h3>
+                    <div id="chart-column-menu">
+                        <span>
+                            <select data-placeholder="Número de columnas" id="chart-column-number" class="chosen-select" tabindex="2" onchange="changeChartNumberOfColumns()">
+                                <option value=""></option>
+                                <option value="1">Una columna</option>
+                                <option value="2">Dos columnas</option>
+                                <option value="3">Tres columnas</option>
+                            </select>
+                        </span>
+                        <span class="electric geo">
+                            <img id="generation-button" class="generic-button" src="resources/chart/buttons/aggregated.svg" alt="Graficar generación agregada" height="28" width="28" onclick="showSystemStackedChart()">
+                            <label> &nbsp &nbsp Generación agregada </label>
+                        </span>
+                    </div>
+
+                    <div class="wrapper-chartjs columns-1" id="charts"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load modals -->
+        <!-- View -->
+        <div class="modal fade" id="loadJSONView">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Cargar vista (JSON)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input name="json-file" id="fileinput" type="file"/></br>
+                        <div class="material-switch pull-left">
+                            <input class="viewLoadSelector" id="loadTopoView" type="checkbox" checked></input>
+                            <label class="label-primary" for="loadTopoView"></label>
+                        </div>
+                        <b class="pull-left lmargin">Cargar vista Topológica</b>
+                        </br></br>
+
+                        <div class="material-switch pull-left">
+                            <input class="viewLoadSelector" id="loadHydricView" type="checkbox" checked></input>
+                            <label class="label-primary" for="loadHydricView"></label>
+                        </div>
+                        <b class="pull-left lmargin">Cargar vista Hídrica</b>
+                        </br></br>
+
+                        <!-- <div class="material-switch pull-left">
+                            <input class="viewLoadSelector" id="loadGeoView" type="checkbox" checked></input>
+                            <label class="label-primary" for="loadGeoView"></label>
+                        </div>
+                        <b class="pull-left lmargin">Cargar vista Georeferenciada</b> -->
+                        </br></br>
+                        <div><p id="valid_file" style="color:red;" align="center">start</p></div>
+                        </br></br>
+                        <input type='submit' class="btn btn-primary" value='Cargar' onclick='loadView()'>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save modal -->}
+        <div class="modal fade" id="saveVis">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Guardar cambios</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type='button' id='btnSaveVis' value='Guardar' onclick='saveView()'>
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
+                            <a class="btn btn-primary">Guardar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend Modal -->
+        <div id="legendModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Leyenda</h4>
+                    </div>
+                    <div class="modal-body">
+                    <h3>Red Eléctrica</h3>
+                    <b>Barras</b>
+					<div class="hidden">
+						<p><span id="buscolorgreen"></span>: Bajo costo marginal.</p>
+						<p><span id="buscoloryellow"></span>: Costo marginal entre el mínimo y el máximo.</p>
+						<p><span id="buscolororange"></span>: Alto costo marginal.</p>
+						<p><span id="buscolorred"></span>: Costo marginal críticamente alto.</p>
+					</div>
+                    <p> 
+						<svg xmlns="http://www.w3.org/2000/svg" width="80" height="10">
+							<rect x="10" y="1.5" width="60" height="70%" fill="rgba(10,10,10,0.8)" stroke-width="1" stroke="#060606"></rect>
+							<circle cx="2.5" cy="2.5" r="2.5" style="fill:lime;" />
+							<polyline points="12.6,7 2.5,7 2.5,2.5 " style="fill:none;stroke:lime;stroke-width:1;" />
+							<polygon points="12.5,5 12.5,9 15,7 " style="fill:lime;stroke:none" />
+						</svg>
+						: Barra con generadores
+					</p>
+                    <p>
+						<svg xmlns="http://www.w3.org/2000/svg" width="80" height="10">
+							<rect x="10" y="1.5" width="60" height="70%" fill="rgba(10,10,10,0.8)" stroke-width="1" stroke="#060606"></rect>
+							<polyline points="75,8 75,3 67.4,3 " style="fill:none;stroke:red;stroke-width:1;" />
+							<polygon points="73,7.5 77,7.5 75,9.9 " style="fill:red;stroke:none" />
+						</svg>
+						: Barra con demanda 
+					</p>
+                    <p>
+						<svg xmlns="http://www.w3.org/2000/svg" width="80" height="10">
+							<rect x="10" y="1.5" width="60" height="70%" fill="rgba(10,10,10,0.8)" stroke-width="1" stroke="#060606"></rect>
+							<circle cx="2.5" cy="2.5" r="2.5" style="fill:lime;" />
+							<polyline points="12.6,7 2.5,7 2.5,2.5 " style="fill:none;stroke:lime;stroke-width:1;" />
+							<polygon points="12.5,5 12.5,9 15,7 " style="fill:lime;stroke:none" />
+							<polyline points="75,8 75,3 67.4,3 " style="fill:none;stroke:red;stroke-width:1;" />
+							<polygon points="73,7.5 77,7.5 75,9.9 " style="fill:red;stroke:none" />
+						</svg>
+						: Barra con generadores y demanda </p>
+                    <p/>
+
+                    <b>Líneas</b>
+                    <p><span id="linecolorblue"></span>: 500 V.</p>
+                    <p><span id="linecolorgreen"></span>: 220 V.</p>
+                    <p><span id="linecolorred"></span>: 154 V.</p>
+                    <p><span id="linecolororange"></span>: 110 V.</p>
+                    <p><span id="linecolorblack"></span>: 66 V.</p>
+                    <p class="hidden">(INSERT LINEA ENTRECORTADA): Línea inactiva.</p>
+					
+					<div class="hidden">
+						<p><span id="circlecolorgreen"></span>: Flujo bajo.</p>
+						<p><span id="circlecoloryellow"></span>: Flujo medio.</p>
+						<p><span id="circlecolororange"></span>: Flujo alto.</p>
+						<p><span id="circlecolorred"></span>: Línea sobrecargada.</p>
+					</div>
+                    <p/>
+					
+				<div class="hidden">
+                    <h3>Red Hídrica</h3>
+                    <b>Nodos</b>
+                    <p>(INSERT DIBUJO EMBALSE): Embalse.</p>
+                    <p>(INSERT CUADRADO): </p>
+                    <p>(INSERT CUADRADO CON PELOTAS): </p>
+                    <p>(INSERT MAR): Representación de mar.</p>
+
+                    <p/>
+
+                    <b>Líneas</b>
+                    <p>(INSERT LINEA ENTRECORTADA): Waterway inactivo</p>
+                    <p><span id="hydrocolorgreen"></span>: Filtración.</p>
+                    <p><span id="hydrocolorblue"></span>: Generación.</p>
+                    <p><span id="hydrocolorred"></span>: Vertimiento.</p>
+                    <p><span id="hydrocolorblack"></span>: Extracción.</p>
+                    <p><span id="hydrocolororange"></span>: Inflow.</p>
+                    </div>
+				</div>
+				
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Manual de Usuario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Layout</b></p>
+                        <ul>
+                            <li>Arriba se encuentra la barra de menú, donde se permite ir a un menú de proyectos, cargar y guardar la vista actual, exportar la vista como imagen,
+                            mostrar/ocultar distintas vistas (como la barra de herramientas o la vista de gráficos), mostrar una leyenda, esta ayuda y un Acerca de.</li>
+                            <li>A la izquierda se encuentra la barra de Búsqueda, que permite buscar una barra en particular usando el dropdown o escribir una barra particular, la
+                            sección de Estado, que permite moverse por las distintas hidrologías y tiempos, la sección de Efectos, que permite mostrar el flujo de la corriente y activar
+                            la física de nodos (que mueve los nodos de su posición de forma automática) y la sección de registro, que permite ver si la información fue cargada correctamente o no.</li>
+                            <li>Al centro se encuentra la vista principal de topología de la red eléctrica.</li>
+                            <li>A la derecha se encuentra la vista de gráficos (inicialmente oculta, se muestra en menú Ver), los cuales se generan al hacer click en un nodo de la vista central.</li>
+                        </ul>
+
+                        <p><b>Funciones</b></p>
+                        <ul>
+                            <li>Click sobre un nodo lo selecciona.</li>
+                            <li>Doble click sobre un nodo tipo barra muestra generadores asociados a esa barra. (Alternativa: tecla <b>G</b>).</li>
+                            <li>Click derecho sobre un nodo o línea muestra menú contextual para generar gráficos.</li>
+                            <li>Click derecho + drag permite hacer multiselección.</li>
+                        </ul>
+
+                        <p><b>Descripción</b></p>
+                        <p>Este programa permite visualizar redes eléctricas, observar potenciales errores en barras y líneas y exportar gráficos de estas componentes.</p>
+                        <p>Los datos para visualización se pueden configurar para su lectura en el menú de Proyectos (Página de inicio).</p>
+                        </br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- About Modal -->
+        <div id="aboutModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Acerca de</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="navbar-brand logo pull-right">
+                            <a href="https://centroenergia.cl/">
+                                <img id="logo-centro-energia" src="resources/logo.png" alt="logo centro de energía"/>
+                            </a>
+                        </div>
+
+
+                        <div class="pull-left modal-contents">
+                            Este software es desarrollado por el Centro de Energía de la Universidad de Chile.
+                            <br>
+                            <br>
+                            La primera versión de esta aplicación fue programada el 2018 por:
+                            <br>
+                            <br>
+                            Javier Díaz P. & José Daniel Muñoz R.
+                            <br>
+                            Paloma Pérez G. & Joaquín Romero M.
+                            <br>
+                            Gabriel Sanhueza S. & Joaquin Torres P.
+                            <br>
+                            <br>
+                            Para consultas sobre este desarrollo, enviar correo a 
+                            <a href = "mailto: contacto@centroenergia.cl">contacto@centroenergia.cl</a>
+                            <br>
+                            <br>
+                            Íconos usados dentro de la aplicación:
+                            <ul>
+                                <li>Desde <a href="https://www.flaticon.com" target="_blank">Flaticon</a> por:</li>
+                                Freepik & Daniel Bruce & Those Icons & Daniele De Santis
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default modal-button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- scripts -->
+        <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+<!--         <script type="text/javascript" src="lib/jquery-latest.js"></script> -->
+        <script type="text/javascript" src="lib/vis.js"></script>
+        <script type="text/javascript" src="lib/chosen.jquery.min.js"></script>
+        <script type="text/javascript" src="lib/hammer.js"></script>
+        <!-- <script type="module" src="lib/Chart.min.js" ></script> -->
+        <script type="text/javascript" src="lib/Chart.min.js" ></script>
+        <script type="text/javascript" src="lib/FileSaver.min.js"></script>
+        <script type="text/javascript" src="lib/Sortable.jquery.min.js"></script>
+
+
+        <script type="text/javascript" src="js/utils.js"></script>
+        <script type="text/javascript" src="config/config.js"></script>
+        <script type="text/javascript" src="js/gui/utils-app.js"></script>
+        <script type="text/javascript" src="js/timer.js"></script>
+        
+        <!--<script type="text/javascript" src="js/loaders/filesystem.js"></script>-->
+        
+        <script type="text/javascript" src="lib/chartjs-plugin-zoom.min.js"></script>
+
+
+        <!-- Cargamos los gráficos posibles dentro del grafo. -->
+        <script type="text/javascript" src="js/graphs/action-chartjs.js"></script>
+        <script type="text/javascript" src="js/graphs/single-chart.js"></script>
+        <script type="text/javascript" src="js/graphs/stacked-charts.js"></script>
+        <script type="text/javascript" src="js/network/utils-visjs.js"></script>
+
+        <script type="text/javascript" src="js/log/action-log.js"></script>
+        <script type="text/javascript" src="js/log/connected.js"></script>
+        <script type="text/javascript" src="js/gui/action-index.js"></script>
+        <script type="text/javascript" src="js/loaders/action-load.js"></script>
+
+        <script type="text/javascript" src="js/gui/action-menubar.js"></script>
+        <script type="text/javascript" src="js/gui/action-save.js"></script>
+        <script type="text/javascript" src="js/search/action-search.js"></script>
+
+        <!-- Aquí cargamos todos los javascripts necesarios para el funcionamiento de visjs. -->
+
+        <script type="text/javascript" src="js/network/map-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Electric/buses-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Electric/lines-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Electric/centrals-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Electric/electric-topology-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Hydric/junctions-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Hydric/waterways-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Hydric/reservoirs-visjs.js"></script>
+        <script type="text/javascript" src="js/network/topology/Hydric/hydric-topology-visjs.js"></script>
+        <script type="text/javascript" src="js/network/events-visjs.js"></script>
+        <script type="text/javascript" src="js/network/action-visjs.js"></script>
+        <script type="text/javascript" src="js/network/leaflet-map.js"></script>
+
+        <script type="text/javascript" src="js/loaders/hydrology-loader.js"></script>
+        <script type="text/javascript" src="js/loaders/electric-topology-loader.js"></script>
+        <script type="text/javascript" src="js/loaders/hydric-topology-loader.js"></script>
+        <script type ="text/javascript" src="js/vis_inicio.js"></script>
+    </body>
+</html>

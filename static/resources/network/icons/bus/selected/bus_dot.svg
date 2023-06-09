@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="60pt" height="40pt" viewBox="0 0 60 40"
+ preserveAspectRatio="xMidYMid meet">
+
+<circle cx="30" cy="20" r="18" stroke="#000000" stroke-width="2" fill="#ffffff"/>
+<circle cx="30" cy="20" r="10" fill="#000000"/>
+</svg>

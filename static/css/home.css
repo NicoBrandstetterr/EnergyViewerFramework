@@ -1,0 +1,209 @@
+.home-body{
+    background: rgba(250, 250, 250, 0.5);
+    height: 100%;
+    width: 100%;
+}
+
+.modal-dialog {
+    width: 95% !important;
+    max-width: 800px !important;
+}
+
+.home-dialog {
+    width: 95% !important;
+    max-width: 1000px !important;
+    margin: 30px auto 30px auto;
+}
+
+.modal-header {
+    border: 0px;
+}
+
+.modal-body {
+    padding: 0 15px 15px 15px;
+}
+
+.center-dialog{
+    display: flex;
+    align-items: center;
+}
+
+.center-header{
+    display: flex;
+    justify-content: center;
+}
+
+
+.new-project-image{
+    vertical-align: middle;
+    height: 32px;
+    opacity: 0.8;
+    margin-left: 8px;
+}
+
+.new-project-image:hover{
+    opacity: 1.0;
+    cursor: pointer;
+}
+
+div.inline { float:left; }
+.clearBoth { clear:both; }
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit
+}
+.form-control-file,
+.form-control-range {
+    display: block
+}
+.custom-file {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    height: 2.5rem;
+    margin-bottom: 0;
+    cursor: pointer
+}
+.custom-file-input {
+    min-width: 14rem;
+    max-width: 100%;
+    height: 2.5rem;
+    margin: 0;
+    filter: alpha(opacity=0);
+    opacity: 0
+}
+.custom-file-control {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    height: 2.5rem;
+    padding: .5rem 1rem;
+    line-height: 1.5;
+    color: #464a4c;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem
+}
+.custom-file-control:lang(en)::after {
+    content: "Elegir archivo..."
+}
+.custom-file-control::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    z-index: 6;
+    display: block;
+    height: 2.5rem;
+    padding: .5rem 1rem;
+    line-height: 1.5;
+    color: #464a4c;
+    background-color: #eceeef;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 0 .25rem .25rem 0
+}
+.custom-file-control:lang(en)::before {
+    content: "Buscar"
+}
+
+hr {
+    height: 1px;
+    margin: 5px 0 5px 0;
+}
+.hr-warning{
+    background-image: -webkit-linear-gradient(left, rgba(210,105,30,.8), rgba(210,105,30,.6), rgba(0,0,0,0));
+}
+.hr-success{
+    background-image: -webkit-linear-gradient(left, rgba(15,157,88,.8), rgba(15, 157, 88,.6), rgba(0,0,0,0));
+}
+.hr-primary{
+    background-image: -webkit-linear-gradient(left, rgba(66,133,244,.8), rgba(66, 133, 244,.6), rgba(0,0,0,0));
+}
+.hr-danger{
+    background-image: -webkit-linear-gradient(left, rgba(244,67,54,.8), rgba(244,67,54,.6), rgba(0,0,0,0));
+}
+
+.breadcrumb {
+    background: rgba(245, 245, 245, 0);
+    border: 0px solid rgba(245, 245, 245, 1);
+    border-radius: 25px;
+    display: block;
+}
+
+.btn-bread{
+    margin-top:10px;
+    font-size: 12px;
+
+    border-radius: 3px;
+}
+
+.navbar-brand{
+    height: 100%;
+}
+
+.my-label {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    display: inline-block;
+    font-size: small;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+
+.user-header {
+    font-size: large;
+}
+
+.user-input {
+    padding: 5px;
+    margin: 0 10px 0 10px;
+    width: 40%;
+}
+
+.project-name {
+    font-size: medium;
+    margin: auto 10px auto 10px;
+}
+
+.buttons-container {
+    width: 120px;
+}
+
+.my-button {
+    border: 0;
+    border-radius: 15px;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.my-button:hover{
+    background-color: #b8b8b8;
+}
+
+.input-error {
+    box-shadow: 0 0 10px red;
+    -moz-box-shadow: 0 0 10px red;
+    -webkit-box-shadow: 0 0 10px red;
+}
+
+.category-container {
+    width: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}
+h3 {
+    margin: 0 0 0 0;
+}

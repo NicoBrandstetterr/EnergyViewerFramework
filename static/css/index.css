@@ -1,0 +1,290 @@
+body {
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 0;
+}
+
+html, body, .container-fluid {
+	height: 100%;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #bbb;
+    margin: 1em 0;
+    padding: 0;
+}
+
+#content {
+	height: calc(100% - 65px);
+	margin-top: 52px;
+}
+
+.generic-button {
+	background-color: #f2f2f2;
+	cursor: pointer;
+	box-shadow: 3px 3px 1px #888888;
+}
+
+.generic-button:active {
+	box-shadow: 1px 1px 1px #888888;
+	transform: translateX(2px);
+	transform: translateY(2px);
+}
+
+.generation-button{
+	background-color: #f2f2f2;
+	cursor: pointer;
+	margin-left: 1em;
+	margin-top: 1em;
+}
+
+.generation-button:active{
+	transform: translateX(2px);
+	transform: translateY(2px);
+}
+
+#vis-column {
+	height: 100%;
+	border-left: solid lightgray 2px;
+	border-right: solid lightgray 2px;
+}
+
+#options-column {
+	overflow-x: hidden;
+	height: 100%;
+}
+
+#chart-column, #options-column {
+	margin-top: 10px;
+    padding-left: 20px;
+}
+
+.scrollable {
+	height: 100%;
+	overflow-y: auto;
+}
+
+#canvas-selector {
+	position: absolute;
+	top: 0px; padding: 0px;
+	list-style: none;
+	z-index: 100;
+}
+
+#canvas-selector>li {
+	margin-top: 10px;
+}
+
+#context-menu {
+	position: absolute;
+	display: block;
+	font-size: small;
+	font-family: "Arial", Arial, Serif;
+	z-index: 101;
+}
+
+#context-menu>ul.list {
+	position:absolute; left:30px; top:-30px;
+	width:200px;
+	margin:0; padding:2px; list-style:none;
+	box-shadow: 6px 6px 5px #888888;
+}
+
+#context-menu>ul.list li {
+	background-color: #FFFFFF;
+	padding:6px;
+	border-bottom: solid 1px #ccc;
+}
+
+#context-menu>ul.list li:hover {
+	background:#6699FF; color:#fff;
+	cursor: pointer;
+}
+#context-menu>ul.list li:last-child { border:none }
+
+#time-slider {
+    width: 60% !important;
+    display: inline;
+}
+
+#animation-speed {
+    width: 70% !important;
+    display: inline !important;
+    float: right;
+    margin-right: 10px;
+}
+
+.right {
+	float: right;
+	margin-right: 3px;
+}
+
+.hidden {
+	display: none;
+}
+
+.hoverable {
+    cursor: pointer;
+}
+
+.slider {
+    -webkit-appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.9;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #0066CC;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+/* Style the buttons that are used to open and close the accordion panel */
+button.accordion {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	width: 100%;
+	text-align: left;
+	border: none;
+	outline: none;
+	transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+	background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+	background-color: white;
+	display: none;
+	margin-bottom: 1px;
+}
+
+p {
+	margin: 0 0 0px;
+}
+
+button.even {
+	background-color: rgba(0,0,0,0.1);
+}
+button.odd {
+	background-color: rgba(255,255,255,0.1);
+}
+p.logSubEntry {
+	color: rgb(255,20,20);
+}
+p.even {
+	background-color: rgba(0,0,0,0.1);
+}
+p.odd {
+	background-color: rgba(255,255,255,0.1);
+}
+p.clickable:hover {
+	cursor: pointer;
+	background-color: #ccc;
+}
+
+.material-switch > input[type="checkbox"] {
+	display: none;
+}
+
+.material-switch > label {
+	cursor: pointer;
+	height: 0px;
+	position: relative;
+	width: 40px;
+}
+
+.material-switch > label::before {
+	background: rgb(0, 0, 0);
+	box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+	border-radius: 8px;
+	content: '';
+	height: 16px;
+	margin-top: -8px;
+	position:absolute;
+	opacity: 0.3;
+	transition: all 0.4s ease-in-out;
+	width: 40px;
+}
+.material-switch > label::after {
+	background: rgb(255, 255, 255);
+	border-radius: 16px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+	content: '';
+	height: 24px;
+	left: -4px;
+	margin-top: -8px;
+	position: absolute;
+	top: -4px;
+	transition: all 0.3s ease-in-out;
+	width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+	background: inherit;
+	opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+	background: inherit;
+	left: 20px;
+}
+
+.dropdown-menu {
+	min-width: 255px !important;
+}
+
+.lmargin {
+	margin-left: 1em;
+}
+
+.modal-contents {
+	width: 60%;
+}
+
+.modal-header {
+	border-bottom: 0;
+}
+
+.modal-body {
+	border-bottom: 0;
+}
+
+.modal-footer {
+	border-top: 0;
+	height: 100%;
+}
+
+.modal-button {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+}
+
+div.chosen-container {
+	min-width: 80px;
+}
+

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>EnergyViewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="resources/icono.png" type="image/x-png"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+  </head>
+  <body >
+    
+    <!-- <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div> -->
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"></div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    
+    <div class="page">
+      <!--Main section-->
+      <section class="section main-section parallax-scene-js" style="background:url('images/centroenergia.jpg') no-repeat center center; background-size:cover;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-8 col-12">
+              <div class="blue-box">
+                <h2 class="title-text"> EnergyViewer 2.0</h2>
+              </div>
+
+              <div class="box-gray">
+                <p class="small-text">El Sistema Eléctrico Nacional al alcance de un click</p>
+            </div>
+            </div>
+            <div class="col-12 text-center offset-top-75" data-wow-delay=".2s"><a class="button-way-point d-inline-block text-center d-inline-flex flex-column justify-content-center" href="#" data-custom-scroll-to="about"><span class="fa-chevron-down"></span></a></div>
+          </div>
+        </div>
+          <div class="decorate-layer">
+          <div class="layer-1">
+            <div class="layer" data-depth=".20"><img src="images/parallax-item-1-563x532.png" alt="" width="563" height="266"/>
+            </div>
+          </div>
+          <div class="layer-2">
+            <div class="layer" data-depth=".30"><img src="images/parallax-item-2-276x343.png" alt="" width="276" height="171"/>
+            </div>
+          </div>
+          <div class="layer-3">
+            <div class="layer" data-depth=".40"><img src="images/parallax-item-3-153x144.png" alt="" width="153" height="72"/>
+            </div>
+          </div>
+          <div class="layer-4">
+            <div class="layer" data-depth=".20"><img src="images/parallax-item-4-69x74.png" alt="" width="69" height="37"/>
+            </div>
+          </div>
+          <div class="layer-5">
+            <div class="layer" data-depth=".40"><img src="images/parallax-item-5-72x75.png" alt="" width="72" height="37"/>
+            </div>
+          </div>
+          <div class="layer-6">
+            <div class="layer" data-depth=".30"><img src="images/parallax-item-6-45x54.png" alt="" width="45" height="27"/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--About-->
+
+<!-- 
+  #EDE9E3 IVORY
+  #CDC6C3 STONE
+  #F8F4F1
+  #9C9C9C
+ -->
+
+<section>
+
+  <!DOCTYPE html>
+  <html lang="en">
+      <head>
+          <meta charset="UTF8"/>
+          <title>EnergyViewer</title>
+  
+          <link rel="icon" href="resources/icono.png" type="image/x-png"/>
+          <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css"/>
+          <link rel="stylesheet" href="css/menubar.css" type="text/css"/>
+  
+          <link rel="stylesheet" href="css/search.css" type="text/css"/>
+          <link rel="stylesheet" href="css/chosen.min.css">
+  
+          <link href="css/index.css" rel="stylesheet" type="text/css" />
+          <link href="css/vis.css" rel="stylesheet" type="text/css" />
+          <link href="css/visjs.css" rel="stylesheet" type="text/css" />
+          <link href="css/home.css" rel="stylesheet" type="text/css" />
+          <link href="css/home.scss" rel="stylesheet" type="text/scss" />
+          <link href="css/chartjs.css" rel="stylesheet" type="text/css" />
+          <link href="css/vis-network.min.css" rel="stylesheet" type="text/css" />
+  
+      </head>
+  
+      <body class="fixed-window">
+      <div class="container">
+          <!-- About Modal -->
+          <div id="home">
+              <div class="home-dialog modal-sm center-dialog ">
+  
+                  <!-- Modal content-->
+                  <div class="modal-content home-body">
+                      <div class="modal-header center-header no-padding">
+                          <div class="navbar-brand logo">
+                              <a href="https://centroenergia.cl/">
+                                  <img id="logo-centro-energia" src="resources/logo.png" alt="logo centro de energía"/>
+                              </a>
+                          </div>
+                      </div>
+                      <div class="modal-header center-header no-padding">
+                     
+                      </div>
+                      <div class="modal-header center-header">
+                        <button id="new-project-btn" onclick="automaticAddProjects();" class="btn btn-primary new-project-button" type="button">
+                            <img class="new-project-image" id="logo-nuevo-proyecto" src="resources/home/newProject.png" hspace="10"/>
+                            Ver Todos Los Proyectos
+                        </button>
+                    </div>
+                      <div id="existing-projects" class="modal-body">
+                      </div>
+                  </div>
+  
+              </div>
+          </div>
+  
+  
+          <!-- New Project Modal -->
+          <div id="newProjectModal" class="modal fade" tabindex='-1' data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-sm">
+          
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Nombre del nuevo proyecto:</h4>
+                    </div>
+          
+                    <div class="modal-body">
+                        <input id="inputName" class="form-control" type="text">
+                    </div>
+          
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Descripción:</h4>
+                    </div>
+          
+                    <div class="modal-body">
+                        <textarea id="project-description" rows="4" spellcheck="false" class="form-control"></textarea>
+                    </div>
+          
+                    <div class="modal-header">
+                        <h4 class="modal-title text-primary">Categoría:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="labels" class="labels"></div>
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align:right">
+                            <span class="btn">
+                                <button onclick="createNewProject();" class="btn btn-primary" type="button">
+                                    <img class="new-project-image" src="resources/home/check.png" />
+                                    Aceptar
+                                </button>
+                            </span>
+                            <span class="btn">
+                                <button onclick="closeModal('newProjectModal');" class="btn btn-primary" type="button">
+                                    <img class="new-project-image" src="resources/home/close.png" />
+                                    Cancelar
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+  
+          <!-- Config Modal -->
+          <div id="configModal" class="modal fade" role="dialog" tabindex='-1'>
+              <div class="modal-dialog">
+  
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h3 class="modal-title text-primary">Proyecto <label id="projectConfigName"></label></h3>
+                      </div>
+                      <div class="modal-header">
+                          <div class="inline">
+                              <h3 class="modal-title text-primary">Configuraciones</h3></div>
+                          <div class="inline pull-right">
+                              <img class="pull-right" src="resources/home/settings.png" hspace="10"/></div>
+                          <span class="clearBoth"></span>
+                      </div>
+                      <div class="modal-body">
+                          <b class="pull-left lmargin">Carpeta del proyecto</b> <br/>
+                          <div class="form-group">
+                              <div class="input-group input-file" style="width: 100%;">
+                                  <input type="text" class="form-control path-input" id="ruta-proyecto" placeholder='C:/fakepath/' style='width: 100%;'/>
+                                  <span class="input-group-btn">
+                                      <button style="visibility:hidden;"> </button>
+                                  </span>
+                              </div>
+                              <br>
+                              <div id="valid-path"><p style="color:red;" align="center"></p></div>
+  
+                          </div>
+                          <br/>
+                          <b class="pull-left lmargin">Resultados habilitados</b>
+                          <div class="material-switch pull-right">
+                              <input class="view-selector" id="results-on" type="checkbox">
+                              <label class="label-primary" for="results-on"></label>
+                          </div>
+                          <br/><br/>
+                          <b class="pull-left lmargin">Debug mode</b>
+                          <div class="material-switch pull-right">
+                              <input class="view-selector" id="debug-mode" type="checkbox">
+                              <label class="label-primary" for="debug-mode"></label>
+                          </div>
+                          <br/><br/>
+                          <button onclick="closeModal('configModal');" class="btn btn-primary pull-right" type="button">Cancelar</button>
+                          <button onclick="saveConfig();" class="btn btn-primary pull-right" type="button">Guardar</button>
+                          <br/><br/>
+                      </div>
+                  </div>
+  
+              </div>
+          </div>
+          <!-- Remove Modal -->
+          <div id="removeModal" class="modal fade" role="dialog" tabindex='-1'>
+              <div class="modal-dialog">
+  
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h3 class="modal-title text-primary">Proyecto <label id="projectRName"></label></h3>
+                      </div>
+                      <div class="modal-header">
+                          <h3 class="modal-title text-primary">¿Está seguro que desea eliminar el proyecto?</h3>
+                      </div>
+                      <div class="modal-body">
+                          <div>
+                              <br/>
+                              <div class="form-group">
+                                  <div class="input-group input-file">
+                                      <span class="input-group-btn">
+  -                                       <button class="btn btn-danger btn-choose"
+                                                  onclick="removeAction(currentProjectName); closeModal('removeModal');"
+                                                  type="button">Sí</button>
+                                          <button class="btn btn-info btn-choose" onclick="closeModal('removeModal');" type="button">No</button>
+  -                                   </span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </div> <!-- Container -->
+          <script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
+          
+      </body>
+  </html> 
+
+</section>
+
+      <!--Footer-->
+      <footer class="section footer-classic section-sm">
+        <div class="container">
+          <div class="row row-30">
+            <div class="col-lg-3 wow fadeInLeft">
+              <!--Brand--><a class="brand" href="index.html"><img class="brand-logo-dark" src="resources/icono.png" alt="" width="100" height="17"/><img class="acker-logo-light" src="resources/logo.png" alt="" width="100" height="17"/></a>
+              <p class="footer-classic-description offset-top-0 offset-right-25">Centro de Energía pertenece a la Facultad de Ciencias Físicas y Matemáticas de la Universidad de Chile.</p>
+            </div>
+            
+            <div class="col-lg-2 col-sm-4 wow fadeInUp" data-wow-delay=".3s">
+              <P class="footer-classic-title">Links</P>
+              <ul class="footer-classic-nav-list">
+                <li id="menu-item-355" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-355"><a href="https://centroenergia.cl/quienes-somos/">El Centro</a></li>
+                <li id="menu-item-5699" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-5699"><a href="http://centroenergia.cl/seleccion-de-proyectos/">Proyectos</a></li>
+                <li id="menu-item-6382" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6382"><a href="https://centroenergia.cl/estudios/">Publicaciones</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    
+
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="js/loaders/filesystem.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/gui/home.js"></script>
+    <script type="text/javascript" src="lib/bootstrap.min.js"></script>
+  </body>
+</html>
