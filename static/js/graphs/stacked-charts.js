@@ -20,7 +20,7 @@ function setUpChart(canvas, xlabel, type, dataset, chartName, lblStrX, lblStrY, 
     requestindhor.open('GET', CONFIG.URL_INDHOR, false);
     requestindhor.onreadystatechange = function() {
         if (this.readyState === 4){
-            console.log("Pasando por indhor");
+            // console.log("Pasando por indhor");
             indhor = JSON.parse(this.responseText);
             for (var i = 0; i < indhor.length; i++) {
                 indhor[i][0] = parseInt(indhor[i][0]);
@@ -29,7 +29,7 @@ function setUpChart(canvas, xlabel, type, dataset, chartName, lblStrX, lblStrY, 
         }
     }
 requestindhor.send();
-console.log("indhor: ",indhor);
+// console.log("indhor: ",indhor);
     let config = {
         type: type, // Charts de tipo 'line' solo usan un color
         data: {
@@ -122,12 +122,13 @@ console.log("indhor: ",indhor);
                   }
                 }
               },
-            responsive: true
-        }
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1.5
+          }
     };
 
   let myChart = new Chart(ctx, config);
-
   let hydrolist = $("#" + (PDTO.print()).replace(/ /gi,"_").normalize() + "-" + selectedElement);
   hydrolist.prop('disabled', true).trigger("chosen:updated");
 

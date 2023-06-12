@@ -23,7 +23,7 @@ function randomColor(seed = null) {
  * @param end Valor final del rango de x
  */
 function chartUpdateXAxis(myChart, start, end) {
-  console.log("Pasando por ChartUpdateXAxis")
+  console.log("function: ChartUpdateXAxis")
   // Se obtienen los valores que contienen los selects.
   let start_val = parseInt(start.find(":selected").val());
   let end_val = parseInt(end.find(":selected").val());
@@ -68,7 +68,7 @@ myChart.update();
  * @param selectedElement identificador del objeto del que se esta sacando información (barra, línea, etc.; es un número.)
  */
 function addGraphEvents(myChart, PDTO, selectedElement) {
-	console.log("pasando addGraphEvents")
+	console.log("function: addGraphEvents");
 	let csvButton = $("#" + (PDTO.print()).replace(/ /gi,"_").normalize() + "-" + selectedElement + "-csv");
   
 	  csvButton.click( () => {	  
@@ -186,7 +186,7 @@ function addGraphEvents(myChart, PDTO, selectedElement) {
  */
 function setUpSingleData(data,canvas, title, type, bkgCol, brdCol, txt,
                          labelStrX, labelStrY, xAxis, yAxis, selectedElement, PDTO,elementO=null) {
-  console.log("pasando por SetUpSingleData")
+  console.log("Function: SetUpSingleData")
   let indhor;
   let requestindhor = new XMLHttpRequest();
   requestindhor.open('GET', CONFIG.URL_INDHOR, false);
@@ -333,10 +333,10 @@ requestindhor.send();
     };
   
     // Se genera el gráfico ChartJS.
-    console.log(ctx);
-    console.log(config);
+    // console.log(ctx);
+    // console.log(config);
     let myChart = new Chart(ctx, config);
-    console.log(myChart);
+    // console.log(myChart);
     
     // Se corrige la responsiveness de los gráficos
     $(window).resize(function() {
@@ -559,19 +559,6 @@ function setUpData(data,canvas, title, type, bkgCol, brdCol, txt, labelStrX, lab
     };
   }
 
-  // Evaluar en qué casos nos interesa mostrar o no mostrar una cota
-  // if (yAxis === 'marginal_cost'){
-
-  // } else if (yAxis === 'flow' && category === 'line') {
-  //   const edge = currentEdges.get(selectedElement);
-  //   // Creamos el set de datos
-  //   let dataSetMax = getDashedDataSet('Máximo flujo', randomColor());
-  //   let dataSetMin = getDashedDataSet('Mínimo flujo', randomColor());
-  //   // Y dejamos como flujo máximo el tope de los datos.
-  //   console.log("Ahora, veamos type de edge.max_flow_positive: ", edge.max_flow_positive)
-  //   updateChart(getConstantData(data, edge.max_flow_positive, 'max_flow_positive'), dataSetMax, 'max_flow_positive');
-  //   updateChart(getConstantData(data, edge.max_flow_negative, 'max_flow_negative'), dataSetMin, 'max_flow_negative');
-  // }
 
   /**
    * Entrega un set de datos de largo igual al arreglo data entregado, y rellena en el lugar name con valores constant.

@@ -95,7 +95,7 @@ function generateFlowLineChart(canvas, elementObj, type, PDTO, fromName, toName,
  * @returns {{cb: callBack, pl: preLoad}}
  */
 function loadFunctions(canvas,title, type, bkgCol, bdrCol, txt, lblStrX, lblStrY, xAxis, yAxis, selectedElement, PDTO, category, kind,elementO=null){
-  console.log("pasando por loadFunctions")
+  console.log("funcion: loadFunctions");
 
   /* Se cargan los datos de la barra seleccionada. */
   let callBack = function (x) {
@@ -258,9 +258,9 @@ function generatePiledGraph(canvas, selectedElement, type, PDTO, centrals, busNa
  * @param hydroNum Numero de la hidrologia desde donde se agregaran datos
  */
 function generateSystemPiledGraph(canvas, type, PDTO, hydroNum) {
-  console.log("pasando por generateSystemPiledGraph en modulo action-chartjs")
+  console.log("function: generateSystemPiledGraph ")
   let jsonUrl=CONFIG.PILED_GENERATION_GRAPH_FOLDER+'generation_system_'+hydroNum.toString()+'.json';
-  console.log("jsonURL: ",jsonUrl)
+  // console.log("jsonURL: ",jsonUrl)
   let request = new XMLHttpRequest();
   request.open('GET', jsonUrl, false);
   request.onreadystatechange = function(){
@@ -371,7 +371,7 @@ function generateFlowBusChart(canvas, selectedElement, type, PDTO, edges, busNam
  */
 
 function percentilGraph(canvas,selectedElement,type,PDTO,elementObject) {
-  console.log("pasando por function percentilll")
+  console.log("Function: percentilGraph");
   let indhor;
   let requestindhor = new XMLHttpRequest();
   requestindhor.open('GET', CONFIG.URL_INDHOR, false);
