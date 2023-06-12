@@ -454,7 +454,8 @@ function automaticAddProjects() {
       "PLP20230325": {"name": "PLP-20230325","categoria": "daily", "descripcion": "Caso Diario del dia 25-03-2023. Extraído del Coordinador Electrico Nacional"},
       "Pet23_escenario_d":{"name":"PET2023 Escenario D","categoria": "PLP", "descripcion": "Escenario D de la planificación de la transmisión 2023 elaborado por el Coordinador Eléctrico"},
       "PLP20230520":{"name": "PLP-20230520", "categoria":"daily","descripcion":"Caso Diario del dia 20-05-2023. Extraído del Coordinador Electrico Nacional"},
-      "PLP20230527":{"name": "PLP-20230527", "categoria":"daily","descripcion":"Caso Diario del dia 27-05-2023. Extraído del Coordinador Electrico Nacional"}
+      "PLP20230527":{"name": "PLP-20230527", "categoria":"daily","descripcion":"Caso Diario del dia 27-05-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230606":{"name": "PLP-20230606", "categoria":"daily","descripcion":"Caso Diario del dia 06-06-2023. Extraído del Coordinador Electrico Nacional"}
     };
     
     
