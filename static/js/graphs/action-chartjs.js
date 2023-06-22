@@ -60,14 +60,14 @@ function generateFlowLineChart(canvas, elementObj, type, PDTO, fromName, toName,
   canvas.id = "canvas_" + containerID;
   var row = canvas.parent().parent();
   row.id = "row_" + containerID;
-
+  console.log("---------element: ",elementObj);
   if( chosenHydrology == null) chosenHydrology = 1;
   var title = "Flujo Linea H" + chosenHydrology;
   var bkgCol = 'rgb(255, 99, 132)';
   var bdrCol = 'rgb(255, 99, 132)';
   var lblStrX = 'Tiempo [bloques]';
   var lblStrY= 'Flujo [MW]';
-  var txt='Flujo en la línea ' + fromName + "->" + toName;
+  var txt='Flujo en la línea ' + elementObj.name;
 
   let result = loadFunctions(canvas, title, type, bkgCol, bdrCol, txt, lblStrX, lblStrY, xAxis, yAxis, elementObj.id, PDTO, 'line', 'lines',elementObj);
 
