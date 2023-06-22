@@ -6,7 +6,7 @@
 
 // Existe una letiable lines en donde se cargan los datos de las líneas previamente.
 function parseLines(lines, electricTopology) {
-  console.log("pasando por parseLines")
+  console.log("function: parseLines");
   // Formamos todas las aristas del grafo que estan representadas por las líneas electricas.
   // Cada arista es de la forma {from: idOrigen, to: idDestino}
 
@@ -33,7 +33,7 @@ function parseLines(lines, electricTopology) {
     let scale = 1/(500-66);
     return 30*Math.max(0,(voltaje)*scale);
   };
-  
+  console.log("lines parselines: ",lines);
   for (let i = 0; i < lines.length; i++){
 
     // Variable para dejar en el label si esta activo en forma intuitiva.
@@ -54,7 +54,7 @@ function parseLines(lines, electricTopology) {
                 console.log("Error: La línea " + lines[i].id + " no contiene datos válidos"); //FIXME
             }
         } else {
-            // console.log("Error: La línea " + lines[i].id+ " no se encontró o se cargó incorrectamente"); //FIXME
+            console.log("Error: La línea " + lines[i].id+ " no se encontró o se cargó incorrectamente"); //FIXME
         }
     } else {
          console.log("Error: La carga de la hidrología actual falló"); //FIXME
@@ -63,8 +63,7 @@ function parseLines(lines, electricTopology) {
     let tooltip = generateTooltip([
                                   "Línea: " + lines[i].name,
                                   "Activo: " + active,
-                                  "Capacidad: " + lines[i].capacity + " [MW]", 
-                                  // "Flujo máximo: " + parseFloat(currentLineTime.capacity).toFixed(1) + " [MW]", 
+                                  "Capacidad: " + currentLineTime.capacity + " [MW]", 
                                   "Flujo máximo: " + lines[i].max_flow_a_b + " [MW]",
                                   "Flujo actual: " + parseFloat(currentLineTime.flow).toFixed(1) + " [MW]", 
                                   "Resistencia: " + parseFloat(lines[i].r).toFixed(1) + " [Ω]",
@@ -177,6 +176,7 @@ function getUpdates(){
 
     let currentLineTime = {
       flow: 0,
+      capacity:0,
       name: 'No Data'
     };
     
@@ -205,7 +205,8 @@ function getUpdates(){
 
     let edge = {
       id: iedges[i].id,
-      flow: currentLineTime.flow
+      flow: currentLineTime.flow,
+      capacity: currentLineTime.capacity,
     };
  
       if (($("#animation-enabled")[0].checked) || edge.flow === 0) {
@@ -234,7 +235,7 @@ function getUpdates(){
     // tooltip es la barra de información que aparece al posar el mouse sobre una linea.
     let tooltip = generateTooltip(["Línea: " + lineName,
                                     "Activo: " + active,
-                                    "Capacidad: " + iedges[i].capacity + " [MW]", 
+                                    "Capacidad: " + currentLineTime.capacity + " [MW]", 
                                     "Flujo máximo: " + iedges[i].max_flow_positive + " [MW]", 
                                     "Flujo actual: " + parseFloat(currentLineTime.flow).toFixed(1) + " [MW]", 
                                     "Resistencia: " + parseFloat(iedges[i].resistance).toFixed(1) + " [Ω]",
