@@ -455,7 +455,11 @@ function automaticAddProjects() {
       "Pet23_escenario_d":{"name":"PET2023 Escenario D","categoria": "PLP", "descripcion": "Escenario D de la planificación de la transmisión 2023 elaborado por el Coordinador Eléctrico"},
       "PLP20230520":{"name": "PLP-20230520", "categoria":"daily","descripcion":"Caso Diario del dia 20-05-2023. Extraído del Coordinador Electrico Nacional"},
       "PLP20230527":{"name": "PLP-20230527", "categoria":"daily","descripcion":"Caso Diario del dia 27-05-2023. Extraído del Coordinador Electrico Nacional"},
-      "PLP20230606":{"name": "PLP-20230606", "categoria":"daily","descripcion":"Caso Diario del dia 06-06-2023. Extraído del Coordinador Electrico Nacional"}
+      "PLP20230606":{"name": "PLP-20230606", "categoria":"daily","descripcion":"Caso Diario del dia 06-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230610":{"name": "PLP-20230610", "categoria":"daily","descripcion":"Caso Diario del dia 10-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230613":{"name": "PLP-20230613", "categoria":"daily","descripcion":"Caso Diario del dia 13-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230617":{"name": "PLP-20230617", "categoria":"daily","descripcion":"Caso Diario del dia 17-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "CASOPLEXO":{"name": "PD-20230618", "categoria":"plexo","descripcion":"Caso Diario del día 18-06-18 Extraído del Coordinador Eléctrico Nacional"},
     };
     
     
@@ -468,6 +472,9 @@ function automaticAddProjects() {
       }
       if (project.categoria === "daily") {
         registry_category = CATEGORIES[1];
+      }
+      if (project.categoria === "plexo"){
+        registry_category = CATEGORIES[2];
       }
 
 
@@ -577,7 +584,7 @@ $('#ruta-proyecto').on("input",(event) =>
     }
   });
 
-let CATEGORIES = ["Caso Planificación de la Transmisión", "Casos Programación Diaria Con Modelo PLP", "Category 3", "Category 4", "Category 5", "Category 6", "Category 7", "Category 8", "Category 9"]; // Casos Programación Diaria Con Modelo PLP
+let CATEGORIES = ["Caso Planificación de la Transmisión", "Casos Programación Diaria Con Modelo PLP", "Casos Programación Diaria Con Modelo PLEXOS", "Category 4", "Category 5", "Category 6", "Category 7", "Category 8", "Category 9"]; // Casos Programación Diaria Con Modelo PLP
 let CATEGORIES_COLORS = [];
 
 function categories_setup(categories){
