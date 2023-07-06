@@ -146,7 +146,7 @@ requestindhor.send();
  * @param xlabel Etiqueta del eje X en gráfico
  */
 function addDataSets(allData, xAxis, yAxis, setDeDatos, xlabel) {
-    console.log("Pasando por addDataSets")
+    console.log("function: addDataSets")
     let color = 0;
     for (const key in allData) {
         // check if the property/key is defined in the object itself, not in parent
@@ -155,7 +155,73 @@ function addDataSets(allData, xAxis, yAxis, setDeDatos, xlabel) {
             const data = allData[key];
             if (data.length > 0) {
                 let ylabel = [];
-                let title = key;
+                let title;
+                let colorBkg;
+                switch(key) {
+                  case "carbon":
+                    title = "carbón";
+                    colorBkg = CONFIG.COLOR_CARBON;
+                    break;
+                  case "diesel":
+                    title = "diésel";
+                    colorBkg = CONFIG.COLOR_DIESEL;
+                    break;
+                  case "geotermia":
+                    title = key;
+                    colorBkg = CONFIG.COLOR_GEOTERMIA;
+                    break;
+                  case "glp":
+                    title = key;
+                    colorBkg = CONFIG.COLOR_GLP;
+                    break;
+                  case "gas_natural":
+                    title = "gas natural";
+                    colorBkg = CONFIG.COLOR_GNL;
+                    break;
+                  case "otros_termico":
+                    title = "otros térmico";
+                    colorBkg = CONFIG.COLOR_OTROS_TERMICO;
+                    break;
+                  case "solar_fv":
+                    title = "solar FV";
+                    colorBkg = CONFIG.COLOR_SOLAR;
+                    break;
+                  case "solar_csp":
+                    title = "solar CSP";
+                    colorBkg = CONFIG.COLOR_SOLAR_CSP;
+                    break;
+                  case "eolica":
+                    title = "eólica";
+                    colorBkg = CONFIG.COLOR_EOLICA;
+                    break;
+                  case "hidraulica_serie":
+                    colorBkg = CONFIG.COLOR_SERIE;
+                    title = "Hidráulica Serie";
+                    break;
+                  case "hidraulica_embalse":
+                    colorBkg = CONFIG.COLOR_EMBALSE;
+                    title = "Hidráulica Embalse";
+                    break;
+                  case "hidraulica_pasada":
+                    colorBkg = CONFIG.COLOR_PASADA;
+                    title = "Hidráulica Pasada";
+                    break;
+                  case "biomasa":
+                    colorBkg = CONFIG.COLOR_BIOMASA;
+                    title = key;
+                    break;
+                  case "otros":
+                    title = key;
+                    colorBkg = CONFIG.COLOR_OTROS;
+                    break;
+                  default:
+                    title = key;
+                    colorBkg = randomColor();
+
+                }
+                if(colorBkg == undefined){
+                  console.log("erroor: ",key);
+                }
 
                 for (let i = 0; i < data.length; i++) {
                     ylabel.push(parseFloat(data[i][yAxis]).toFixed(1));
@@ -171,44 +237,25 @@ function addDataSets(allData, xAxis, yAxis, setDeDatos, xlabel) {
                 }
 
                 // Colores respecto a CONFIG
-                let colorBkg;
-                switch(title) {
-                    case "hidraulica_serie":
-                        colorBkg = CONFIG.COLOR_SERIE;
-                        break;
-                    case "hidraulica_embalse":
-                        colorBkg = CONFIG.COLOR_EMBALSE;
-                        break;
-                    case "Pasada":
-                        colorBkg = CONFIG.COLOR_PASADA;
-                        break;
-                    case "Minihidro":
-                        colorBkg = CONFIG.COLOR_MINIHIDRO;
-                        break;
-                    case "solar_fv":
-                        colorBkg = CONFIG.COLOR_SOLAR;
-                        break;
-                    case "eolica":
-                        colorBkg = CONFIG.COLOR_EOLICA;
-                        break;
-                    case "carbon":
-                        colorBkg = CONFIG.COLOR_CARBON;
-                        break;
-                    case "diesel":
-                        colorBkg = CONFIG.COLOR_DIESEL;
-                        break;
-                    case "GNL":
-                        colorBkg = CONFIG.COLOR_GNL;
-                        break;
-                    case "biomasa":
-                        colorBkg = CONFIG.COLOR_BIOMASA;
-                        break;
-                    case "Cogeneracion":
-                        colorBkg = CONFIG.COLOR_COGENERACION;
-                        break;
-                    default:
-                        colorBkg = randomColor();
-                }
+                
+                // switch(title) {
+                                      
+                //     case "Pasada":
+                //         colorBkg = CONFIG.COLOR_PASADA;
+                //         break;
+                //     case "Minihidro":
+                //         colorBkg = CONFIG.COLOR_MINIHIDRO;
+                //         break;
+                //     case "GNL":
+                //         colorBkg = CONFIG.COLOR_GNL;
+                //         break;
+                    
+                //     case "Cogeneracion":
+                //         colorBkg = CONFIG.COLOR_COGENERACION;
+                //         break;
+                //     default:
+                //         colorBkg = randomColor();
+                // }
                 if(title == "null") title = "H1";
                 const dataset = {
                   label: title,

@@ -257,9 +257,8 @@ function generatePiledGraph(canvas, selectedElement, type, PDTO, centrals, busNa
  * @param hydroNum Numero de la hidrologia desde donde se agregaran datos
  */
 function generateSystemPiledGraph(canvas, type, PDTO, hydroNum) {
-  console.log("function: generateSystemPiledGraph ")
+  console.log("function: generateSystemPiledGraph ");
   let jsonUrl=CONFIG.PILED_GENERATION_GRAPH_FOLDER+'generation_system_'+hydroNum.toString()+'.json';
-  // console.log("jsonURL: ",jsonUrl)
   let request = new XMLHttpRequest();
   request.open('GET', jsonUrl, false);
   request.onreadystatechange = function(){
@@ -275,6 +274,7 @@ function generateSystemPiledGraph(canvas, type, PDTO, hydroNum) {
       let centralsData = JSON.parse(this.responseText);
       let setDeDatos = [];
       let xlabel = [];
+      console.log(centralsData);
       addDataSets(centralsData, xAxis, yAxis, setDeDatos, xlabel);
       setUpChart(canvas, xlabel, type, setDeDatos, 'Generación del sistema', lblStrX, lblStrY, 'Sistema', PDTO,true);
     }

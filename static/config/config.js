@@ -54,16 +54,20 @@ var CONFIG =
 
     "ESCALADOR"                     : 3.5,
 
-
+    "COLOR_CARBON"                  : "rgba(33, 33, 33, 1)", // Grey 90%
+    "COLOR_DIESEL"                  : "rgba(158, 158, 158, 1)", // Grey 50%
+    "COLOR_GEOTERMIA"               : "rgba(128, 0, 32, 1)",
+    "COLOR_GLP"                     : "rgba(51, 102, 0, 1)",
+    "COLOR_GNL"                     : "rgba(255, 125, 7, 0.5)", // Deep Orange
     "COLOR_SERIE"                   : "rgba(33, 150, 243, 1)", // Blue
     "COLOR_EMBALSE"                 : "rgba(63, 81, 181, 1)", // Indigo
     "COLOR_PASADA"                  : "rgba(3, 169, 244, 1)", // Light Blue
     "COLOR_MINIHIDRO"               : "rgba(0, 188, 212, 1)", // Cyan
     "COLOR_SOLAR"                   : "rgba(255, 193, 7, 1)", // Amber (almost yellow)
+    "COLOR_SOLAR_CSP"               : "rgba(204, 153, 51, 1)",
     "COLOR_EOLICA"                  : "rgba(139, 195, 74, 1)", // Light Green
-    "COLOR_CARBON"                  : "rgba(33, 33, 33, 1)", // Grey 90%
-    "COLOR_DIESEL"                  : "rgba(158, 158, 158, 1)", // Grey 50%
-    "COLOR_GNL"                     : "rgba(255, 87, 34, 1)", // Deep Orange
+    "COLOR_OTROS"                   : "rgba(128, 0, 128, 1)",
+    "COLOR_OTROS_TERMICO"           : "rgba(165, 42, 42, 0.6)",
     "COLOR_BIOMASA"                 : "rgba(121, 85, 72, 1)", // Brown
     "COLOR_COGENERACION"            : "rgba(128, 222, 234, 1)"  // Cyan 20%
   };
