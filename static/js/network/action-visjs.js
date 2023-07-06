@@ -42,7 +42,7 @@ async function generateNetwork(container, nodesInput, edgesInput, topologyType) 
  * 2: hídrica
  * 3: geo
  */
-  console.log("se entro en generateNetwork")
+  console.log(" function: generateNetwork");
   let t0 = performance.now();
   // Variables para contruir el grafo.
   let network, nodes, edges;
@@ -109,7 +109,16 @@ async function generateNetwork(container, nodesInput, edgesInput, topologyType) 
       },
       edges: { // Esto es para que las aristas no sean curvas.
         smooth: {
+          // type: 'dynamic',
           type: 'continuous',
+          // type: 'discrete',
+          // type: 'diagonalCross',
+          // type: 'straightCross',
+          // type: 'horizontal',
+          // type: 'vertical',
+          // type: 'curvedCW',
+          // type: 'curvedCCW',
+          // type: 'cubicBezier',
           roundness: 0
         }
       },
@@ -122,7 +131,7 @@ async function generateNetwork(container, nodesInput, edgesInput, topologyType) 
       },
       layout: layoutOptions // Para que los nodos salgan ordenados por nivel en caso de ser red hídrica.
     };
-
+    console.log(options.edges.smooth.type);
   // Se crea la red en visjs.
   network = new vis.Network(container, data, options);
 

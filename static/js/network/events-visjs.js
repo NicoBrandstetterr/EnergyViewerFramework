@@ -332,7 +332,6 @@ function addTriggerEvents(network, topologyType, nodes, edges) {
     // Si el elemento clickeado es un nodo, se ejecutan estas acciones.
     if (network.getNodeAt(params.pointer.DOM)) {
       clickedElementID = network.getNodeAt(params.pointer.DOM);
-      console.log(clickedElementID);
       clickedElementObject = currentNodes.get(clickedElementID);
 
       // Vemos el tipo del nodo para crear el menú correspondiente.

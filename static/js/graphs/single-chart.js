@@ -47,7 +47,10 @@ function chartUpdateXAxis(myChart, start, end) {
         max_y = max_y < val ? val : max_y;
       }
     }
-
+  if (min_y === max_y) {
+    min_y -= 0.5;  // Disminuye un poco el valor mínimo
+    max_y += 0.5;  // Aumenta un poco el valor máximo
+  }
   // Se guarda en cada uno de los ejes el cambio de eje.
   myChart.config.options.scales.y.min = min_y*1.05;
   myChart.config.options.scales.y.max = max_y*1.05;
@@ -333,16 +336,12 @@ requestindhor.send();
     };
   
     // Se genera el gráfico ChartJS.
-    // console.log(ctx);
-    // console.log(config);
     let myChart = new Chart(ctx, config);
-    // console.log(myChart);
-    
+
     // Se corrige la responsiveness de los gráficos
     $(window).resize(function() {
       myChart.resize();
     });
-    // console.log("configsss: ",config.data.datasets, typeof config.data.datasets, config.data.datasets.length)
     
     // Se agregan eventos con respecto al grafico creado.
     addGraphEvents(myChart, PDTO, selectedElement);

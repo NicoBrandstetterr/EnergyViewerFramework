@@ -12,8 +12,7 @@
  * @param nodeName Nombre del nodo (elemento de grafo) desde el cual se obtendran los dato a graficar. En este caso es una barra.
  */
 function generateBusChart(canvas, selectedElement, type, PDTO, nodeName) {  // PDTO === Plotable DataType Object Esta función recibe datos y genera un grafico con ellos en el canvas
-  console.log("pasando por generateBusChart")
-  // console.log("presentando canvas: ", canvas)
+  console.log("function: generateBusChart")
   let xAxis = PDTO.idX;
   let yAxis = PDTO.idY;
 	let containerID = 'chart' + selectedElement + '-' + xAxis + '-' + yAxis;
@@ -373,439 +372,451 @@ function generateFlowBusChart(canvas, selectedElement, type, PDTO, edges, busNam
 function percentilGraph(canvas,selectedElement,type,PDTO,elementObject) {
   console.log("Function: percentilGraph");
   let indhor;
-  let requestindhor = new XMLHttpRequest();
-  requestindhor.open('GET', CONFIG.URL_INDHOR, false);
-  requestindhor.onreadystatechange = function() {
-    if (this.readyState === 4){
+  // let requestindhor = new XMLHttpRequest();
+  // requestindhor.open('GET', CONFIG.URL_INDHOR, false);
+  // requestindhor.onreadystatechange = function() {
+  //   if (this.readyState === 4){
+  //     console.log("Pasando por indhor");
+  //     indhor = JSON.parse(this.responseText);
+  //     for (var i = 0; i < indhor.length; i++) {
+  //       indhor[i][0] = parseInt(indhor[i][0]);
+  //       indhor[i][1] = parseInt(indhor[i][1]);
+  //     }
+  //   }
+  // }
+  // requestindhor.send();
+  // Hacer una solicitud fetch a la URL
+  fetch(CONFIG.URL_INDHOR)
+    .then(response => response.json())
+    .then(data => {
       console.log("Pasando por indhor");
-      indhor = JSON.parse(this.responseText);
+      indhor = data;
       for (var i = 0; i < indhor.length; i++) {
         indhor[i][0] = parseInt(indhor[i][0]);
         indhor[i][1] = parseInt(indhor[i][1]);
       }
-    }
-  }
-  requestindhor.send();
-  if (elementObject.category === "bus-to-bus"){
-    console.log("Percentil Lineas");
-    // console.log("Mostrando objeto",elementObject);
-    // console.log("Mostrando ID y numberID: ",elementObject.lineNumber,selectedElement);
-    let jsonUrl = CONFIG.PERCENTIL_FLOW_LINE_FOLDER+'line_'+elementObject.lineNumber.toString()+'.json';
-    let request = new XMLHttpRequest();
-    let xAxis = PDTO.idX;
-    let yAxis = PDTO.idY;
-    request.open('GET', jsonUrl, false);
-    request.onreadystatechange = function() {
-        if (this.readyState === 4) {
-          // console.log("Se entro al readystate===4")
-          let containerID = 'chart' + selectedElement + '-' + xAxis + '-' + yAxis;
-          canvas.attr("id","canvas_" + containerID);
-          let title = "Percentil_FL"; // Título en negritas del gráfico.
-          let newColor = randomColor();
-          let bkgCol= newColor; // Color de la línea,
-          let bdrCol= newColor; // Color del borde de la línea,
-          let labelStrX= PDTO.labelX + " " + PDTO.unitX; // Etiqueta del eje x
-          let labelStrY= PDTO.labelY + " " + PDTO.unitY; // Etiqueta del eje y
-          
-      
-          let perc_data = JSON.parse(this.responseText);
-          // console.log("perc_Data: ",perc_data)
-          // console.log("perc_Data type: ",typeof perc_data)
-          let txt = PDTO.title + " en " + perc_data[0].LinName; // Título del dataset correspondiente.
-  
-          // Inicia simil con setUpSingleDATA
-          let perc0 = [], perc20 = [], perc80 = [], perc100 = [], Min = [], Max =[]
-            let time = []
-          perc_data.forEach(element => {
-            perc0.push(parseFloat(element.perc0.toFixed(1)) ) // toFixed para 1 decimal y parseFloat para volver a pasar de str a float.
-            perc20.push(parseFloat(element.perc20.toFixed(1)))
-            perc80.push(parseFloat(element.perc80.toFixed(1)))
-            perc100.push(parseFloat(element.perc100.toFixed(1)))
-            Min.push(parseFloat(element.Min.toFixed(1)))
-            Max.push(parseFloat(element.Max.toFixed(1)))
-            time.push(element.time)
-          });
 
-          // Canvas donde se dibujará el gráfico.
-          const ctx = canvas[0].getContext('2d');
-          
-          let chartData = {
-            labels: time,
-            datasets: [
-              {
-                  label: "Perc0",
-                  data: perc0,
-                  borderColor: 'rgba(33, 33, 33, 1)',
-                  backgroundColor: 'rgba(33, 33, 33, 0.3)',
-                  pointBackgroundColor: 'rgba(33, 33, 33, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc20",
-                  data: perc20,
-                  borderColor: 'rgba(255, 0, 0, 1)',
-                  backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                  pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc80",
-                  data: perc80,
-                  borderColor: 'rgba(0, 255, 0, 1)',
-                  backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                  pointBackgroundColor: 'rgba(0, 255, 0, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc100",
-                  data: perc100,
-                  borderColor: 'rgba(0, 0, 255, 1)',
-                  backgroundColor: 'rgba(0, 0, 255, 0.3)',
-                  pointBackgroundColor: 'rgba(0, 0, 255, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                label: "Min",
-                data: Min,
-                borderColor: 'rgba(255, 0, 0, 1)',
-              backgroundColor: 'rgba(255, 0, 0, 0)',
-              pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-                borderWidth: 1,
-                pointRadius: 0,
-           
-            },
-            {
-              label: "Max",
-              data: Max,
-              borderColor: 'rgba(255, 0, 0, 1)',
-              backgroundColor: 'rgba(255, 0, 0, 0)',
-              pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-              borderWidth: 1,
-              pointRadius: 0,
-        
-          }
-          ]
-          };
-          
-          let config = {
-            type: 'line',
-            data: chartData,
-            options: {
-              plugins: {
-                title: {
-                  display: true,
-                  text: txt
-                },
-                tooltip: {
-                  mode: 'index',
-                  intersect: false,
-      
-                  callbacks: {
-                    beforeTitle: function(tooltipItem){
-      
-                      return 'Bloque: '+tooltipItem[0].label
-                    },
-                    title: function(tooltipItem){
-                      // console.log("title: ",typeof tooltipItem[0].label)
-                      for (var i = 0; i < indhor.length; i++) {
-                        if (tooltipItem[0].label >= indhor[i][0] && tooltipItem[0].label <= indhor[i][1]) {
-                            return indhor[i][2];
-                        }
-                    }
-                      return "";
-                    },
-                      label: function(tooltipItem) {
-                          var datasetLabel = config.data.datasets[tooltipItem.datasetIndex].label || '';
-                          var label = datasetLabel + ': ' + tooltipItem.formattedValue;
-                          return label;
-                      }
-                  },
-                },
-                zoom: {
-                  zoom: {
-                    wheel: {
-                      enabled: true,
-                    },
-                    pinch: {
-                      enabled: true
-                    },
-                    // drag: {
-                    //   enabled: true
-                    // },
-                    mode: 'xy',
-                  }
-                }
-      
-              },
-              hover: {
-                mode: 'index',
-                intersect: false
-              },
-              elements: {
-                point: {
-                  radius: 0
-                }
-              },
-              scales: {
-                y: {
-                  ticks: {
-                    beginAtZero: true
-                  },
-                  title: {
-                    display: true,
-                    text: labelStrY
-                  }
-                },
-                x: {
-                  title: {
-                    display: true,
-                    text: labelStrX
-                  },
-                  ticks: {
-                    beginAtZero: true,
-                    callback: function(index) {
-                      for (var i = 0; i < indhor.length; i++) {
-                          if (index >= indhor[i][0] && index <= indhor[i][1]) {
-                              return indhor[i][2];
-                          }
-                      }
-                      return "";
-                  }
-                  }
-                }
-              },
-              responsive: true
-
-            }
-        };
-
-        let myChart = new Chart(ctx, config);
-        console.log("viendo mychart: ",myChart);
-        // Se corrige la responsiveness de los gráficos
-        $(window).resize(function() {
-          myChart.resize();
-        });
-
-        // Se agregan eventos con respecto al grafico creado.
-        addGraphEvents(myChart, PDTO, selectedElement);
-
-          }
-      }
-      request.send();
-    }
-  else if (elementObject.category === "bus"){
-    console.log("Percentil bus")
-    // console.log("Mostrando objeto",elementObject);
-    // console.log("Mostrando ID y numberID: ",elementObject.lineNumber,selectedElement);
-    let jsonUrl=CONFIG.PERCENTIL_MARGINAL_COST_FOLDER+'bus_'+selectedElement.toString()+'.json';
-    console.log("jsonURL: ",jsonUrl)
-    let request = new XMLHttpRequest();
-    let xAxis = PDTO.idX;
-    let yAxis = PDTO.idY;
-    request.open('GET', jsonUrl, false);
-    request.onreadystatechange = function() {
-        if (this.readyState === 4) {
-          // console.log("Se entro al readystate===4")
-          let containerID = 'chart' + selectedElement + '-' + xAxis + '-' + yAxis;
-          canvas.attr("id","canvas_" + containerID);
-          
-          let title = "Percentil_MC"; // Título en negritas del gráfico.
-          let newColor = randomColor();
-          let bkgCol= newColor; // Color de la línea,
-          let bdrCol= newColor; // Color del borde de la línea,
-          let labelStrX= PDTO.labelX + " " + PDTO.unitX; // Etiqueta del eje x
-          let labelStrY= PDTO.labelY + " " + PDTO.unitY; // Etiqueta del eje y
-          let txt = PDTO.title + " en la barra " + elementObject.nodeName; // Título del dataset correspondiente.
-          let perc_data = JSON.parse(this.responseText);
-          // console.log("perc_Data: ",perc_data)
-          // console.log("perc_Data type: ",typeof perc_data)
-          // Inicia simil con setUpSingleDATA
-          let perc0 = [], perc20 = [], perc80 = [], perc100 = [], promedio = []
-            let time = []
-          perc_data.forEach(element => {
-            perc0.push(parseFloat(element.perc0.toFixed(1)) ) // toFixed para 1 decimal y parseFloat para volver a pasar de str a float.
-            perc20.push(parseFloat(element.perc20.toFixed(1)))
-            perc80.push(parseFloat(element.perc80.toFixed(1)))
-            perc100.push(parseFloat(element.perc100.toFixed(1)))
-            promedio.push(parseFloat(element.promedio.toFixed(1)))
-            time.push(element.time)
-          });
-
-          // Canvas donde se dibujará el gráfico.
-          const ctx = canvas[0].getContext('2d');
-          
-          let chartData = {
-            labels: time,
-            datasets: [
-              {
-                  label: "Perc0",
-                  data: perc0,
-                  borderColor: 'rgba(33, 33, 33, 1)',
-                  backgroundColor: 'rgba(33, 33, 33, 0.3)',
-                  pointBackgroundColor: 'rgba(33, 33, 33, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc20",
-                  data: perc20,
-                  borderColor: 'rgba(255, 0, 0, 1)',
-                  backgroundColor: 'rgba(255, 0, 0, 0.3)',
-                  pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc80",
-                  data: perc80,
-                  borderColor: 'rgba(0, 255, 0, 1)',
-                  backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                  pointBackgroundColor: 'rgba(0, 255, 0, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Perc100",
-                  data: perc100,
-                  borderColor: 'rgba(0, 0, 255, 1)',
-                  backgroundColor: 'rgba(0, 0, 255, 0.3)',
-                  pointBackgroundColor: 'rgba(0, 0, 255, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              },
-              {
-                  label: "Promedio",
-                  data: promedio,
-                  borderColor: 'rgba(255, 193, 7, 1)',
-                  backgroundColor: 'rgba(255, 193, 7, 0.3)',
-                  pointBackgroundColor: 'rgba(255, 193, 7, 1)',
-                  borderWidth: 1,
-                  pointRadius: 0,
-                  fill: false
-              }
-          ]
-          };
-          
-          let config = {
-            type: 'line',
-            data: chartData,
-            options: {
-              plugins: {
-                title: {
-                  display: true,
-                  text: txt
-                },
-                tooltip: {
-                  mode: 'index',
-                  intersect: false,
-
-                  callbacks: {
-                    beforeTitle: function(tooltipItem){
-
-                      return 'Bloque: '+tooltipItem[0].label
-                    },
-                    title: function(tooltipItem){
-                      // console.log("title: ",typeof tooltipItem[0].label)
-                      for (var i = 0; i < indhor.length; i++) {
-                        if (tooltipItem[0].label >= indhor[i][0] && tooltipItem[0].label <= indhor[i][1]) {
-                            return indhor[i][2];
-                        }
-                    }
-                      return "";
-                    },
-                      label: function(tooltipItem) {
-                          var datasetLabel = config.data.datasets[tooltipItem.datasetIndex].label || '';
-                          var label = datasetLabel + ': ' + tooltipItem.formattedValue;
-                          return label;
-                      }
-                  },
-                },
-                zoom: {
-                  zoom: {
-                    wheel: {
-                      enabled: true,
-                    },
-                    pinch: {
-                      enabled: true
-                    },
-                    // drag: {
-                    //   enabled: true
-                    // },
-                    mode: 'xy',
-                  }
-                }
-
-              },
+      console.log("indhoooor: ",indhor);
+      if (elementObject.category === "bus-to-bus"){
+        console.log("Percentil Lineas");
+        // console.log("Mostrando objeto",elementObject);
+        // console.log("Mostrando ID y numberID: ",elementObject.lineNumber,selectedElement);
+        let jsonUrl = CONFIG.PERCENTIL_FLOW_LINE_FOLDER+'line_'+elementObject.lineNumber.toString()+'.json';
+        let request = new XMLHttpRequest();
+        let xAxis = PDTO.idX;
+        let yAxis = PDTO.idY;
+        request.open('GET', jsonUrl, false);
+        request.onreadystatechange = function() {
+            if (this.readyState === 4) {
+              // console.log("Se entro al readystate===4")
+              let containerID = 'chart' + selectedElement + '-' + xAxis + '-' + yAxis;
+              canvas.attr("id","canvas_" + containerID);
+              let title = "Percentil_FL"; // Título en negritas del gráfico.
+              let newColor = randomColor();
+              let bkgCol= newColor; // Color de la línea,
+              let bdrCol= newColor; // Color del borde de la línea,
+              let labelStrX= PDTO.labelX + " " + PDTO.unitX; // Etiqueta del eje x
+              let labelStrY= PDTO.labelY + " " + PDTO.unitY; // Etiqueta del eje y
               
-              hover: {
-                mode: 'index',
-                intersect: false
-              },
-              elements: {
-                point: {
-                  radius: 0
-                }
-              },
-              scales: {
-                y: {
-                  ticks: {
-                    beginAtZero: true
-                  },
+          
+              let perc_data = JSON.parse(this.responseText);
+              // console.log("perc_Data: ",perc_data)
+              // console.log("perc_Data type: ",typeof perc_data)
+              let txt = PDTO.title + " en " + perc_data[0].LinName; // Título del dataset correspondiente.
+      
+              // Inicia simil con setUpSingleDATA
+              let perc0 = [], perc20 = [], perc80 = [], perc100 = [], Min = [], Max =[]
+                let time = []
+              perc_data.forEach(element => {
+                perc0.push(parseFloat(element.perc0.toFixed(1)) ) // toFixed para 1 decimal y parseFloat para volver a pasar de str a float.
+                perc20.push(parseFloat(element.perc20.toFixed(1)))
+                perc80.push(parseFloat(element.perc80.toFixed(1)))
+                perc100.push(parseFloat(element.perc100.toFixed(1)))
+                Min.push(parseFloat(element.Min.toFixed(1)))
+                Max.push(parseFloat(element.Max.toFixed(1)))
+                time.push(element.time)
+              });
 
-                  title: {
-                    display: true,
-                    text: labelStrY
+              // Canvas donde se dibujará el gráfico.
+              const ctx = canvas[0].getContext('2d');
+              
+              let chartData = {
+                labels: time,
+                datasets: [
+                  {
+                      label: "Perc0",
+                      data: perc0,
+                      borderColor: 'rgba(33, 33, 33, 1)',
+                      backgroundColor: 'rgba(33, 33, 33, 0.3)',
+                      pointBackgroundColor: 'rgba(33, 33, 33, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
                   },
+                  {
+                      label: "Perc20",
+                      data: perc20,
+                      borderColor: 'rgba(255, 0, 0, 1)',
+                      backgroundColor: 'rgba(255, 0, 0, 0.3)',
+                      pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Perc80",
+                      data: perc80,
+                      borderColor: 'rgba(0, 255, 0, 1)',
+                      backgroundColor: 'rgba(0, 255, 0, 0.3)',
+                      pointBackgroundColor: 'rgba(0, 255, 0, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Perc100",
+                      data: perc100,
+                      borderColor: 'rgba(0, 0, 255, 1)',
+                      backgroundColor: 'rgba(0, 0, 255, 0.3)',
+                      pointBackgroundColor: 'rgba(0, 0, 255, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                    label: "Min",
+                    data: Min,
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                  backgroundColor: 'rgba(255, 0, 0, 0)',
+                  pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 1,
+                    pointRadius: 0,
+              
                 },
-                x: {
-
-                  title: {
-                    display: true,
-                    text: labelStrX
-                  },
-                  ticks: {
-                    beginAtZero: true,
-                    callback: function(index) {
-                      for (var i = 0; i < indhor.length; i++) {
-                          if (index >= indhor[i][0] && index <= indhor[i][1]) {
-                              return indhor[i][2];
+                {
+                  label: "Max",
+                  data: Max,
+                  borderColor: 'rgba(255, 0, 0, 1)',
+                  backgroundColor: 'rgba(255, 0, 0, 0)',
+                  pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                  borderWidth: 1,
+                  pointRadius: 0,
+            
+              }
+              ]
+              };
+              
+              let config = {
+                type: 'line',
+                data: chartData,
+                options: {
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: txt
+                    },
+                    tooltip: {
+                      mode: 'index',
+                      intersect: false,
+          
+                      callbacks: {
+                        beforeTitle: function(tooltipItem){
+          
+                          return 'Bloque: '+tooltipItem[0].label
+                        },
+                        title: function(tooltipItem){
+                          // console.log("title: ",typeof tooltipItem[0].label)
+                          for (var i = 0; i < indhor.length; i++) {
+                            if (tooltipItem[0].label >= indhor[i][0] && tooltipItem[0].label <= indhor[i][1]) {
+                                return indhor[i][2];
+                            }
+                        }
+                          return "";
+                        },
+                          label: function(tooltipItem) {
+                              var datasetLabel = config.data.datasets[tooltipItem.datasetIndex].label || '';
+                              var label = datasetLabel + ': ' + tooltipItem.formattedValue;
+                              return label;
                           }
+                      },
+                    },
+                    zoom: {
+                      zoom: {
+                        wheel: {
+                          enabled: true,
+                        },
+                        pinch: {
+                          enabled: true
+                        },
+                        // drag: {
+                        //   enabled: true
+                        // },
+                        mode: 'xy',
                       }
-                      return "";
-                  }
-                  }
+                    }
+          
+                  },
+                  hover: {
+                    mode: 'index',
+                    intersect: false
+                  },
+                  elements: {
+                    point: {
+                      radius: 0
+                    }
+                  },
+                  scales: {
+                    y: {
+                      ticks: {
+                        beginAtZero: true
+                      },
+                      title: {
+                        display: true,
+                        text: labelStrY
+                      }
+                    },
+                    x: {
+                      title: {
+                        display: true,
+                        text: labelStrX
+                      },
+                      ticks: {
+                        beginAtZero: true,
+                        callback: function(index) {
+                          for (var i = 0; i < indhor.length; i++) {
+                              if (index >= indhor[i][0] && index <= indhor[i][1]) {
+                                  return indhor[i][2];
+                              }
+                          }
+                          return "";
+                      }
+                      }
+                    }
+                  },
+                  responsive: true
+
                 }
-              },
-              responsive: true
+            };
 
-            }
-        };
-        let myChart = new Chart(ctx, config);
-        console.log("viendo mychart: ",myChart);
-        // Se corrige la responsiveness de los gráficos
-        $(window).resize(function() {
-          myChart.resize();
-        });
+            let myChart = new Chart(ctx, config);
+            console.log("viendo mychart: ",myChart);
+            // Se corrige la responsiveness de los gráficos
+            $(window).resize(function() {
+              myChart.resize();
+            });
+            // Se agregan eventos con respecto al grafico creado.
+            addGraphEvents(myChart, PDTO, selectedElement);
 
-        // Se agregan eventos con respecto al grafico creado.
-        addGraphEvents(myChart, PDTO, selectedElement);
-
+              }
           }
-      }
-      request.send();
-    }
+          request.send();
+        }
+      else if (elementObject.category === "bus"){
+        let jsonUrl=CONFIG.PERCENTIL_MARGINAL_COST_FOLDER+'bus_'+selectedElement.toString()+'.json';
+        console.log("jsonURL: ",jsonUrl)
+        let request = new XMLHttpRequest();
+        let xAxis = PDTO.idX;
+        let yAxis = PDTO.idY;
+        request.open('GET', jsonUrl, false);
+        request.onreadystatechange = function() {
+            if (this.readyState === 4) {
+              // console.log("Se entro al readystate===4")
+              let containerID = 'chart' + selectedElement + '-' + xAxis + '-' + yAxis;
+              canvas.attr("id","canvas_" + containerID);
+              
+              let title = "Percentil_MC"; // Título en negritas del gráfico.
+              let newColor = randomColor();
+              let bkgCol= newColor; // Color de la línea,
+              let bdrCol= newColor; // Color del borde de la línea,
+              let labelStrX= PDTO.labelX + " " + PDTO.unitX; // Etiqueta del eje x
+              let labelStrY= PDTO.labelY + " " + PDTO.unitY; // Etiqueta del eje y
+              let txt = PDTO.title + " en la barra " + elementObject.nodeName; // Título del dataset correspondiente.
+              let perc_data = JSON.parse(this.responseText);
+              // console.log("perc_Data: ",perc_data)
+              // console.log("perc_Data type: ",typeof perc_data)
+              // Inicia simil con setUpSingleDATA
+              let perc0 = [], perc20 = [], perc80 = [], perc100 = [], promedio = []
+                let time = []
+              perc_data.forEach(element => {
+                perc0.push(parseFloat(element.perc0.toFixed(1)) ) // toFixed para 1 decimal y parseFloat para volver a pasar de str a float.
+                perc20.push(parseFloat(element.perc20.toFixed(1)))
+                perc80.push(parseFloat(element.perc80.toFixed(1)))
+                perc100.push(parseFloat(element.perc100.toFixed(1)))
+                promedio.push(parseFloat(element.promedio.toFixed(1)))
+                time.push(element.time)
+              });
+
+              // Canvas donde se dibujará el gráfico.
+              const ctx = canvas[0].getContext('2d');
+              
+              let chartData = {
+                labels: time,
+                datasets: [
+                  {
+                      label: "Perc0",
+                      data: perc0,
+                      borderColor: 'rgba(33, 33, 33, 1)',
+                      backgroundColor: 'rgba(33, 33, 33, 0.3)',
+                      pointBackgroundColor: 'rgba(33, 33, 33, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Perc20",
+                      data: perc20,
+                      borderColor: 'rgba(255, 0, 0, 1)',
+                      backgroundColor: 'rgba(255, 0, 0, 0.3)',
+                      pointBackgroundColor: 'rgba(255, 0, 0, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Perc80",
+                      data: perc80,
+                      borderColor: 'rgba(0, 255, 0, 1)',
+                      backgroundColor: 'rgba(0, 255, 0, 0.3)',
+                      pointBackgroundColor: 'rgba(0, 255, 0, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Perc100",
+                      data: perc100,
+                      borderColor: 'rgba(0, 0, 255, 1)',
+                      backgroundColor: 'rgba(0, 0, 255, 0.3)',
+                      pointBackgroundColor: 'rgba(0, 0, 255, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  },
+                  {
+                      label: "Promedio",
+                      data: promedio,
+                      borderColor: 'rgba(255, 193, 7, 1)',
+                      backgroundColor: 'rgba(255, 193, 7, 0.3)',
+                      pointBackgroundColor: 'rgba(255, 193, 7, 1)',
+                      borderWidth: 1,
+                      pointRadius: 0,
+                      fill: false
+                  }
+              ]
+              };
+              
+              let config = {
+                type: 'line',
+                data: chartData,
+                options: {
+                  plugins: {
+                    title: {
+                      display: true,
+                      text: txt
+                    },
+                    tooltip: {
+                      mode: 'index',
+                      intersect: false,
+
+                      callbacks: {
+                        beforeTitle: function(tooltipItem){
+
+                          return 'Bloque: '+tooltipItem[0].label
+                        },
+                        title: function(tooltipItem){
+                          // console.log("title: ",typeof tooltipItem[0].label)
+                          for (var i = 0; i < indhor.length; i++) {
+                            if (tooltipItem[0].label >= indhor[i][0] && tooltipItem[0].label <= indhor[i][1]) {
+                                return indhor[i][2];
+                            }
+                        }
+                          return "";
+                        },
+                          label: function(tooltipItem) {
+                              var datasetLabel = config.data.datasets[tooltipItem.datasetIndex].label || '';
+                              var label = datasetLabel + ': ' + tooltipItem.formattedValue;
+                              return label;
+                          }
+                      },
+                    },
+                    zoom: {
+                      zoom: {
+                        wheel: {
+                          enabled: true,
+                        },
+                        pinch: {
+                          enabled: true
+                        },
+                        // drag: {
+                        //   enabled: true
+                        // },
+                        mode: 'xy',
+                      }
+                    }
+
+                  },
+                  
+                  hover: {
+                    mode: 'index',
+                    intersect: false
+                  },
+                  elements: {
+                    point: {
+                      radius: 0
+                    }
+                  },
+                  scales: {
+                    y: {
+                      ticks: {
+                        beginAtZero: true
+                      },
+
+                      title: {
+                        display: true,
+                        text: labelStrY
+                      },
+                    },
+                    x: {
+
+                      title: {
+                        display: true,
+                        text: labelStrX
+                      },
+                      ticks: {
+                        beginAtZero: true,
+                        callback: function(index) {
+                          for (var i = 0; i < indhor.length; i++) {
+                              if (index >= indhor[i][0] && index <= indhor[i][1]) {
+                                  return indhor[i][2];
+                              }
+                          }
+                          return "";
+                      }
+                      }
+                    }
+                  },
+                  responsive: true
+
+                }
+            };
+            let myChart = new Chart(ctx, config);
+            console.log("viendo mychart: ",myChart);
+            // Se corrige la responsiveness de los gráficos
+            $(window).resize(function() {
+              myChart.resize();
+            });
+
+            // Se agregan eventos con respecto al grafico creado.
+            addGraphEvents(myChart, PDTO, selectedElement);
+
+              }
+          }
+          request.send();
+        }
+
+    })
+    
+  
   }
 
 /**

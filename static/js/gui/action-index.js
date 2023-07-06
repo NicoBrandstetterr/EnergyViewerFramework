@@ -16,7 +16,7 @@ var view_assignation_dict = {
     "true, false, false" : ["col-md-12", "hidden", "hidden"],
     "true, false, true" : ["col-md-2", "hidden", "col-md-10"],
     "true, true, false" : ["col-md-2", "col-md-10", "hidden"],
-    "true, true, true" : ["col-md-2", "col-md-6", "col-md-4"]
+    "true, true, true" : ["col-md-1", "col-md-6", "col-md-5"]
 };
 /**
  * Cambia vista de acuerdo a selección

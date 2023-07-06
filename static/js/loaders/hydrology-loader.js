@@ -190,44 +190,26 @@ function loadCenFile(cenId, noLoadAction , loadAction, hydro) {
  * @param typeId tipo de dato a cargar ('buses', 'lines', 'centrals', 'reservoirs')
  */
 function loadTypeFile(elementId, noLoadAction, loadAction, hydro, typeId,a=2){
-  console.log("pasando por modulo hydrology-loader función LoadTypeFile")
-  let t0 = performance.now();
-
+  console.log("function: LoadTypeFile");
   if(typeof hydro === 'undefined') hydro = chosenHydrology;
-  let t1 = performance.now();
-  if (a === 0){
-    console.log("t1 tardó " + (t1-t0) + " milisegundos.")
-  }
   // Verifica si esta la estructura de datos necesaria.
   checkHydrologyTimes(hydro);
-  let t2 = performance.now();
-  if (a === 0){
-    console.log("t2 tardó " + (t2-t1) + " milisegundos.")
-  }
   // verifico si los resultado ya fueron cargados.
   if(elementId in hydrologyTimes[hydro][typeId]) {
-    // console.log("preLoad loadtypefile")
     noLoadAction(hydrologyTimes[hydro][typeId][elementId]);
   } 
   else {
     // cargo los datos que no fueron cargados previamente.
-    // console.log("callback loadtypefile")
     let chartReq = new XMLHttpRequest();
     chartReq.onreadystatechange = loadAction(chartReq, hydro);
     try {
-
       // Se ejecuta un get pidiendo los datos de un archivo.
       chartReq.open("GET", getUrlByHydrology(typeId, hydro) + getTypeToFileString(typeId) + elementId + ".json", false);
       chartReq.send();
     } catch (err) {
-
       // Se muestra en pantalla si existió algún tipo de error.
       createLog('El archivo de resultados ' + getTypeToString(typeId) + ' ' + elementId + " no existe", LOG_TYPE.ERROR);
     }
-  }
-  let t4 = performance.now();
-  if (a === 0){
-    console.log("t4 tardó " + (t4-t2) + " milisegundos.")
   }
 }
 
