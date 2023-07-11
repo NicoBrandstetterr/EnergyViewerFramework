@@ -459,6 +459,11 @@ function automaticAddProjects() {
       "PLP20230610":{"name": "PLP-20230610", "categoria":"daily","descripcion":"Caso Diario del dia 10-06-2023. Extraído del Coordinador Electrico Nacional"},
       "PLP20230613":{"name": "PLP-20230613", "categoria":"daily","descripcion":"Caso Diario del dia 13-06-2023. Extraído del Coordinador Electrico Nacional"},
       "PLP20230617":{"name": "PLP-20230617", "categoria":"daily","descripcion":"Caso Diario del dia 17-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230620":{"name": "PLP-20230620", "categoria":"daily","descripcion":"Caso Diario del dia 20-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230624":{"name": "PLP-20230624", "categoria":"daily","descripcion":"Caso Diario del dia 24-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230628":{"name": "PLP-20230628", "categoria":"daily","descripcion":"Caso Diario del dia 28-06-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230701":{"name": "PLP-20230701", "categoria":"daily","descripcion":"Caso Diario del dia 01-07-2023. Extraído del Coordinador Electrico Nacional"},
+      "PLP20230704":{"name": "PLP-20230704", "categoria":"daily","descripcion":"Caso Diario del dia 04-07-2023. Extraído del Coordinador Electrico Nacional"},
       "CASOPLEXO":{"name": "PD-20230618", "categoria":"plexo","descripcion":"Caso Diario del día 18-06-18 Extraído del Coordinador Eléctrico Nacional"},
     };
     
